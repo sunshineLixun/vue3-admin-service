@@ -43,11 +43,16 @@ export class CatsService {
   }
 
   async remove(id: number) {
-    const { raw } = await this.usersRepository.delete(id);
-    if (raw.affectedRows) {
-      return '删除成功';
+    const cat = await this.findOne(id);
+    if (cat) {
+      const { affected } = await this.usersRepository.delete(id);
+      if (affected && affected > 0) {
+        return '删除成功';
+      } else {
+        return '删除失败';
+      }
     } else {
-      return '删除失败';
+      return '小猫不存在';
     }
   }
 }

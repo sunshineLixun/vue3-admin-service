@@ -19,6 +19,7 @@ import { ValidationPipe } from './validate.pipe';
       username: 'root',
       password: '123456789',
       database: 'posts',
+      autoLoadEntities: true,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
