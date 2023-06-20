@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { CatsModule } from './cats/cats.module';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
 import { TransformInterceptor } from './interceptors/transform/transform-interceptors';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
-import { ValidationPipe } from './validate.pipe';
+import { ValidationPipe } from './validate/validate.pipe';
 
 @Module({
   imports: [
@@ -26,9 +24,8 @@ import { ValidationPipe } from './validate.pipe';
     CatsModule,
     UserModule,
   ],
-  controllers: [AppController, UserController],
+  controllers: [UserController],
   providers: [
-    AppService,
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
