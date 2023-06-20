@@ -6,7 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { validate } from 'class-validator';
-import { plainToClass } from 'class-transformer';
+import { plainToInstance} from 'class-transformer';
 import { values } from 'lodash';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ValidationPipe implements PipeTransform {
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
-    const object = plainToClass(metatype, value);
+    const object = plainToInstance(metatype, value);
     const errors = await validate(object);
     if (errors.length > 0) {
       //获取第一个错误并且返回
