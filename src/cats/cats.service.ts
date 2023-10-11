@@ -1,6 +1,6 @@
 import { Body, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Cat } from './cat.entity';
 import { CreateCatDto } from './dto/create-cat.dto';
 
@@ -25,11 +25,11 @@ export class CatsService {
   }
 
   async findOne(id: number): Promise<Cat> {
-    return await this.usersRepository.findOne(id);
+    return await this.usersRepository.findOneBy({ id: id });
   }
 
   async update(id: number, body: CreateCatDto) {
-    const entity = await this.usersRepository.findByIds([id]);
+    const entity = await this.usersRepository.findBy({ id: In([id]) });
     if (entity.length == 0) {
       return 'id错误';
     }
