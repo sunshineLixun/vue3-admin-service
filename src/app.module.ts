@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
 import { TransformInterceptor } from './interceptors/transform/transform-interceptors';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { HttpExceptionFilter } from './filters/http-exception/http-exception.filter';
 import { ValidationPipe } from './validate/validate.pipe';
 
 @Module({
