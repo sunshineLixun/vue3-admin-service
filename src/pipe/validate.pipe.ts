@@ -2,8 +2,7 @@ import {
   PipeTransform,
   Injectable,
   ArgumentMetadata,
-  HttpException,
-  HttpStatus,
+  BadRequestException,
 } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
@@ -21,7 +20,7 @@ export class ValidationPipe implements PipeTransform {
       //获取第一个错误并且返回
       const msg = values(errors[0].constraints)[0];
       // 统一抛出异常
-      throw new HttpException({ message: msg }, HttpStatus.BAD_REQUEST);
+      throw new BadRequestException(msg);
     }
     return value;
   }
