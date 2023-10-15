@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Register } from './entities/register.entity';
 import { Repository } from 'typeorm';
 import { isEmpty } from 'src/utils';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class RegisterService {
@@ -13,7 +14,9 @@ export class RegisterService {
   ) {}
 
   async register(@Body() registerDto: CreateRegisterDto) {
-    const { id } = await this.reginstetRepository.save(registerDto);
+    // 直接sava，BeforeInsert不会执行
+    const entity = plainToInstance(Register, registerDto);
+    const { id } = await this.reginstetRepository.save(entity);
     if (!isEmpty(id)) {
       return '注册成功';
     }

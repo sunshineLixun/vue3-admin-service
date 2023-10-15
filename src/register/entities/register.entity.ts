@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Entity()
 export class Register {
@@ -10,4 +11,12 @@ export class Register {
 
   @Column()
   password: string;
+
+  @BeforeInsert()
+  async hasPassword() {
+    console.log('hasPassword');
+    if (this.password) {
+      this.password = bcrypt.hashSync(this.password, 10);
+    }
+  }
 }
