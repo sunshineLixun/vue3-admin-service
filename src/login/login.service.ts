@@ -1,17 +1,19 @@
-import { Body, Injectable } from '@nestjs/common';
-import { CreateRegisterDto } from 'src/register/dto/create-register.dto';
-import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
 import { Register } from 'src/register/entities/register.entity';
-import { InjectRepository } from '@nestjs/typeorm';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class LoginService {
-  constructor(
-    @InjectRepository(Register) private loginRepository: Repository<Register>,
-  ) {}
+  constructor(private jwtService: JwtService) {}
 
-  async login(@Body() dto: CreateRegisterDto) {
-    console.log(dto);
-    return 'This action adds a new login';
+  async login(user: Partial<Register>) {
+    const payload = { username: user.username, id: user.id };
+
+    const access_token = this.jwtService.sign(payload);
+
+    return {
+      access_token,
+      type: 'Bearer',
+    };
   }
 }

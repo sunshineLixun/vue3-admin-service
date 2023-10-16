@@ -1,8 +1,9 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, UseGuards, Req } from '@nestjs/common';
 import { LoginService } from './login.service';
-import { CreateRegisterDto } from 'src/register/dto/create-register.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import type { Request } from 'express';
+import { CreateRegisterDto } from 'src/register/dto/create-register.dto';
 
 @Controller('auth')
 export class LoginController {
@@ -12,7 +13,10 @@ export class LoginController {
   @Post('login')
   @ApiOperation({ summary: '登录' })
   @UseGuards(AuthGuard('local'))
-  async login(@Body() createLoginDto: CreateRegisterDto) {
-    return await this.loginService.login(createLoginDto);
+  // 解决swagger不显示请求参数问题
+  @ApiBody({ type: CreateRegisterDto })
+  async login(@Req() req: Request) {
+    // 这里的user是 LocalStrategy 中 validate方法返回的结果
+    return this.loginService.login(req.user);
   }
 }

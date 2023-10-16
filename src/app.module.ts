@@ -24,8 +24,8 @@ import { RegisterModule } from './register/register.module';
     }),
     CatsModule,
     UserModule,
-    LoginModule,
     RegisterModule,
+    LoginModule,
   ],
   providers: [
     {

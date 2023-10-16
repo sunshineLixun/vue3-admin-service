@@ -19,7 +19,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     } as IStrategyOptions);
   }
 
-  async validate(username: string, password: string): Promise<any> {
+  async validate(username: string, password: string): Promise<Register> {
     const user = await this.reginstetRepository.findOneBy({
       username,
     });

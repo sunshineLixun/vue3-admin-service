@@ -19,6 +19,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
     let resultMessage = exception.message;
+    // 自定义code
     let resultCode = 1;
     try {
       const { code, message } = JSON.parse(exception.message);
