@@ -4,14 +4,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { compareSync } from 'bcrypt';
 import { BadRequestException } from '@nestjs/common';
-import { Register } from 'src/register/entities/register.entity';
+import { User } from 'src/user/entities/user.entity';
 
 // 校验策略
 
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @InjectRepository(Register)
-    private readonly reginstetRepository: Repository<Register>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {
     super({
       usernameField: 'username',
@@ -19,11 +19,12 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     } as IStrategyOptions);
   }
 
-  async validate(username: string, password: string): Promise<Register> {
-    const user = await this.reginstetRepository.findOneBy({
+  async validate(username: string, password: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({
       username,
     });
 
+    console.log(user);
     if (!user) {
       throw new BadRequestException('用户不存在');
     }

@@ -32,7 +32,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       code: resultCode, // 自定义code
     };
     // 设置返回的状态码、请求头、发送错误信息
-
     // 修改为链式
     response
       .status(status)

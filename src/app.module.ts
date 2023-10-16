@@ -2,12 +2,11 @@ import { Module } from '@nestjs/common';
 import { CatsModule } from './cats/cats.module';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
 import { TransformInterceptor } from './interceptors/transform/transform-interceptors';
 import { HttpExceptionFilter } from './filters/http-exception/http-exception.filter';
 import { ValidationPipe } from './pipe/validate.pipe';
 import { LoginModule } from './login/login.module';
-import { RegisterModule } from './register/register.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -24,7 +23,6 @@ import { RegisterModule } from './register/register.module';
     }),
     CatsModule,
     UserModule,
-    RegisterModule,
     LoginModule,
   ],
   providers: [
