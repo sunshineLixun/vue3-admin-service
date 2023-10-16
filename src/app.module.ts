@@ -8,19 +8,29 @@ import { ValidationPipe } from './pipe/validate.pipe';
 import { LoginModule } from './login/login.module';
 import { UserModule } from './user/user.module';
 import { JwtAuthGuard } from './global/guard/jwt-auth.guard';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import envConfig from 'config/envConfig';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '123456789',
-      database: 'posts',
-      autoLoadEntities: true,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [envConfig.path],
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<string>('DB_HOST') ?? 'localhost',
+        port: configService.get<number>('DB_PORT') ?? 3306,
+        username: configService.get<string>('DB_USERNAME') ?? 'root',
+        password: configService.get<string>('DB_PASSWORD') ?? '123456789',
+        database: configService.get<string>('DB_DATABASE') ?? 'posts',
+        retryDelay: 500,
+        retryAttempts: 10,
+        autoLoadEntities: true,
+      }),
     }),
     CatsModule,
     UserModule,
