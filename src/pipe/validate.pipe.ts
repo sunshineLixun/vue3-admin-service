@@ -8,6 +8,7 @@ import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 import { values } from 'lodash';
 
+// 对接口输入输出参数做校验
 @Injectable()
 export class ValidationPipe implements PipeTransform {
   async transform(value: any, { metatype }: ArgumentMetadata) {
@@ -17,7 +18,7 @@ export class ValidationPipe implements PipeTransform {
     const object = plainToInstance(metatype, value);
     const errors = await validate(object);
     if (errors.length > 0) {
-      //获取第一个错误并且返回
+      // 获取第一个错误并且返回
       const msg = values(errors[0].constraints)[0];
       // 统一抛出异常
       throw new BadRequestException(msg);

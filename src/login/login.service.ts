@@ -1,17 +1,17 @@
 import { Body, Injectable } from '@nestjs/common';
-import { CreateLoginDto } from './dto/create-login.dto';
+import { CreateRegisterDto } from 'src/register/dto/create-register.dto';
 import { Repository } from 'typeorm';
-import { Login } from './entities/login.entity';
+import { Register } from 'src/register/entities/register.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class LoginService {
   constructor(
-    @InjectRepository(Login) private loginRepository: Repository<Login>,
+    @InjectRepository(Register) private loginRepository: Repository<Register>,
   ) {}
 
-  async create(@Body() createLoginDto: CreateLoginDto) {
-    console.log(createLoginDto);
+  async login(@Body() dto: CreateRegisterDto) {
+    console.log(dto);
     return 'This action adds a new login';
   }
 }

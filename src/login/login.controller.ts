@@ -1,16 +1,18 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { LoginService } from './login.service';
-import { CreateLoginDto } from './dto/create-login.dto';
+import { CreateRegisterDto } from 'src/register/dto/create-register.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
-@Controller('login')
+@Controller('auth')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
   @ApiTags('登录')
-  @Post()
+  @Post('login')
   @ApiOperation({ summary: '登录' })
-  async create(@Body() createLoginDto: CreateLoginDto) {
-    return await this.loginService.create(createLoginDto);
+  @UseGuards(AuthGuard('local'))
+  async login(@Body() createLoginDto: CreateRegisterDto) {
+    return await this.loginService.login(createLoginDto);
   }
 }

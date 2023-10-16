@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 
+// 全局异常Http异常处理
 // 只针对Http请求错误异常处理
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {

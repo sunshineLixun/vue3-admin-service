@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { LoginService } from './login.service';
 import { LoginController } from './login.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Login } from './entities/login.entity';
+import { Register } from 'src/register/entities/register.entity';
+import { LocalStrategy } from 'src/global/strategy/local.strategy';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Login])],
+  imports: [TypeOrmModule.forFeature([Register])],
   controllers: [LoginController],
-  providers: [LoginService],
+  providers: [LocalStrategy, LoginService],
 })
 export class LoginModule {}

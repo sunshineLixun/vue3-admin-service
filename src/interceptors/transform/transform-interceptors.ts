@@ -21,6 +21,7 @@ export class TransformInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<SuccessResponse>> {
+    // 成功response 拼装
     return next.handle().pipe(
       map((data) => {
         return {
