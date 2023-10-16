@@ -25,7 +25,7 @@ export class UserService {
   ) {}
 
   async register(@Body() registerDto: CreateUserDto): Promise<RegisterResult> {
-    const { message, SQLError, isExist } = await this.findOne(
+    const { message, SQLError, isExist } = await this.findOneByUserName(
       registerDto.username,
     );
 
@@ -55,7 +55,7 @@ export class UserService {
     };
   }
 
-  async findOne(username: string): Promise<FindOneResult> {
+  async findOneByUserName(username: string): Promise<FindOneResult> {
     // 这里用下原生SQL查询
     const sql = `SELECT username FROM user WHERE username = '${username}'`;
     let result: any[];
@@ -71,5 +71,9 @@ export class UserService {
     return {
       isExist: result.length > 0,
     };
+  }
+
+  async findOneById(id: string): Promise<User> {
+    return await this.userRepository.findOneBy({ id });
   }
 }

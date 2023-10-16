@@ -20,7 +20,7 @@ export class TransformInterceptor implements NestInterceptor {
   intercept(
     context: ExecutionContext,
     next: CallHandler<any>,
-  ): Observable<any> | Promise<Observable<SuccessResponse>> {
+  ): Observable<SuccessResponse> | Promise<Observable<SuccessResponse>> {
     // 成功response 拼装
     return next.handle().pipe(
       map((data) => {

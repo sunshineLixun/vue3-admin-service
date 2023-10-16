@@ -14,6 +14,7 @@ export class LoginService {
     return {
       access_token,
       type: 'Bearer',
+      message: '登录成功',
     };
   }
 }

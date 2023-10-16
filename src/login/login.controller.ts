@@ -4,11 +4,13 @@ import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import type { Request } from 'express';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { Public } from 'src/global/decorator/public.decorator';
 
 @Controller('auth')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
+  @Public()
   @ApiTags('登录')
   @Post('login')
   @ApiOperation({ summary: '登录' })
