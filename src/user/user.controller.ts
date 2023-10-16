@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/global/decorator/public.decorator';
 
 @ApiTags('注册/用户')
@@ -27,7 +27,8 @@ export class UserController {
     return result.message;
   }
 
-  @Get('user:id')
+  @Get('user/:id')
+  @ApiBearerAuth()
   async findOne(@Param('id') id: string) {
     return await this.userService.findOneById(id);
   }
