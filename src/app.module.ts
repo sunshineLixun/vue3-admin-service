@@ -30,6 +30,7 @@ import envConfig from 'config/envConfig';
         retryDelay: 500,
         retryAttempts: 10,
         autoLoadEntities: true,
+        synchronize: false,
       }),
     }),
     CatsModule,
