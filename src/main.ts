@@ -4,7 +4,8 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  // 设置全局路由前缀
+  app.setGlobalPrefix('api');
   const config = new DocumentBuilder()
     .addBearerAuth()
     .setTitle('Nest api')
@@ -13,7 +14,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
-  
+
   app.enableCors();
   await app.listen(3000);
 }
