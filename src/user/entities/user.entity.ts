@@ -20,16 +20,20 @@ export class User {
   @Column({ select: false })
   password: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({
+    name: 'create_date',
+  })
   createDate: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    name: 'update_date',
+  })
   updateDate: Date;
 
   // 在插入数据库之前会执行这个函数
   @BeforeInsert()
   async hasPassword() {
-    // 对paasword进行加密
+    // 对password进行加密
     if (this.password) {
       this.password = bcrypt.hashSync(this.password, 10);
     }
