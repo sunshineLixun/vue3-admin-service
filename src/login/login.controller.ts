@@ -1,10 +1,10 @@
 import { Controller, Post, UseGuards, Req } from '@nestjs/common';
 import { LoginService } from './login.service';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 import type { Request } from 'express';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { Public } from 'src/global/decorator/public.decorator';
+import { LocalAuthGuard } from 'src/global/guard/local-auth.guard';
 
 @Controller('auth')
 export class LoginController {
@@ -14,7 +14,7 @@ export class LoginController {
   @ApiTags('登录')
   @Post('login')
   @ApiOperation({ summary: '登录' })
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   // 当时用Req注解时，没有显示申明Dto参数，swagger不显示接口入参
   // 解决swagger不显示请求参数问题
   @ApiBody({ type: CreateUserDto })

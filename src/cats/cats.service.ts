@@ -34,7 +34,7 @@ export class CatsService {
       return 'id错误';
     }
     const { raw } = await this.usersRepository.update(id, body);
-    console.log(raw);
+
     if (raw) {
       return '修改成功';
     } else {

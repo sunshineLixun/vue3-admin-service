@@ -26,7 +26,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       .where('user.username=:username', { username })
       .getOne();
 
-    console.log(user);
     if (!user) {
       throw new BadRequestException('用户不存在');
     }

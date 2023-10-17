@@ -21,6 +21,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     let resultMessage = exception.message;
     // 自定义code
     let resultCode = 1;
+
     try {
       const { code, message } = JSON.parse(exception.message);
       resultMessage = message;
