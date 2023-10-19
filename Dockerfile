@@ -15,15 +15,16 @@ RUN npm config set registry https://registry.npm.taobao.org/
 # npm 安装依赖
 RUN npm install
 
+# 复制其余的文件到容器内
 COPY . .
 
 # 打包
 RUN npm run build
 
+# 指定容器需要暴露的端口
 EXPOSE 9003
 
 # 启动服务
-# "start:prod": "cross-env NODE_ENV=production node ./dist/src/main.js",
 CMD npm run start:prod
 
 
