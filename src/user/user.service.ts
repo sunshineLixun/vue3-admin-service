@@ -42,7 +42,7 @@ export class UserService {
       };
     }
 
-    // 直接sava，BeforeInsert不会执行
+    // 直接sava Dto，BeforeInsert不会执行
     const entity = plainToInstance(User, registerDto);
     const { id } = await this.userRepository.save(entity);
     if (!isEmpty(id)) {

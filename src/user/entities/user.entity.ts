@@ -20,14 +20,10 @@ export class User {
   @Column({ select: false })
   password: string;
 
-  @CreateDateColumn({
-    name: 'create_date',
-  })
+  @CreateDateColumn()
   createDate: Date;
 
-  @UpdateDateColumn({
-    name: 'update_date',
-  })
+  @UpdateDateColumn()
   updateDate: Date;
 
   // 在插入数据库之前会执行这个函数
