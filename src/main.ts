@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +17,13 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, document);
 
   app.enableCors();
-  await app.listen(3000);
+
+  const configService = app.get(ConfigService); // 获取全局配置
+  const PORT = configService.get<number>('PORT') || 9000;
+  const HOST = configService.get('HOST') || 'localhost';
+
+  await app.listen(PORT, () => {
+    console.log(`服务已经启动,接口请访问:http://wwww.${HOST}:${PORT}`);
+  });
 }
 bootstrap();
