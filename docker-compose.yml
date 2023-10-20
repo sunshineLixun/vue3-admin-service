@@ -3,16 +3,16 @@ version: '3.0'
 services:
   mysql_service:
     container_name: mysql_container
-    image: daocloud.io/library/mysql:8.0.20 # 使用官方镜像
+    image: mysql:latest # 使用官方镜像
     ports:
       - 3306:3306 # 本机端口:容器端口
     restart: on-failure
     environment:
       MYSQL_DATABASE: posts
       MYSQL_ROOT_PASSWORD: 123456789
-      MYSQL_USER: root
+      # MYSQL_USER: root
       MYSQL_PASSWORD: 123456789
-      MYSQL_ROOT_HOST: '%'
+      TZ: Asia/Shanghai
     volumes:
       - ./deploy/mysql/db:/var/lib/mysql # 用来存放了数据库表文件
       - ./deploy/mysql/conf/my.cnf:/etc/my.cnf # 存放自定义的配置文件

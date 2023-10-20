@@ -1,4 +1,4 @@
-FROM node:18-alpine3.14
+FROM node:18-alpine
 
 # 创建工作目录
 RUN mkdir -p /app
@@ -20,6 +20,9 @@ COPY . .
 
 # 打包
 RUN npm run build
+
+# 设置node环境变量
+ENV NODE_ENV production
 
 # 指定容器需要暴露的端口
 EXPOSE 9003

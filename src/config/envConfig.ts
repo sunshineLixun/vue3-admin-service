@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const isProd = process.env.NODE_ENV === 'production';
+console.log('isProd', isProd);
 
 function parseEnv() {
   const localEnv = path.resolve('.env.local');
