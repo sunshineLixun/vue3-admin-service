@@ -19,7 +19,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           retryDelay: 500,
           retryAttempts: 10,
           autoLoadEntities: true,
-          synchronize: false,
+          synchronize:
+            configService.get<string>('TYPEORM_SYNCHRONIZE') === 'true'
+              ? true
+              : false,
+          entities: [],
         };
       },
     }),
